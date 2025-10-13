@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "LLM Model Farm Manager",
+  "version": "0.1.0",
+  "identifier": "com.vibes.llmmodelfarm",
+  "build": {
+    "beforeDevCommand": "pnpm -C ../app dev",
+    "beforeBuildCommand": "pnpm -C ../app build",
+    "frontendDist": "../app/dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "LLM Model Farm Manager",
+        "width": 1280,
+        "height": 720,
+        "fullscreen": false,
+        "resizable": true
+      }
+    ]
+  },
+  "plugins": {
+    "store": {},
+    "log": {
+      "level": "info"
+    },
+    "sql": {
+      "default": {
+        "path": "game.db"
+      },
+      "preload": [
+        "sqlite:game.db"
+      ]
+    }
+  },
+  "android": {
+    "package": {
+      "name": "com.vibes.llmmodelfarm",
+      "versionCode": 1
+    },
+    "minSdkVersion": 26,
+    "targetSdkVersion": 34,
+    "permissions": [
+      "android.permission.INTERNET"
+    ]
+  },
+  "ios": {
+    "bundle": {
+      "identifier": "com.vibes.llmmodelfarm",
+      "category": "public.app-category.games"
+    },
+    "deploymentTarget": "15.0",
+    "entitlements": {
+      "aps-environment": "development"
+    }
+  }
+}
