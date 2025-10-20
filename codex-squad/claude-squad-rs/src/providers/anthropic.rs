@@ -5,6 +5,7 @@ use async_stream::try_stream;
 use futures::StreamExt;
 use reqwest::Client;
 use serde::Serialize;
+use serde_json::Value;
 
 #[derive(Serialize)]
 struct AnthropicRequest<'a> {
@@ -70,15 +71,54 @@ pub async fn stream(
             let mut buffer = String::new();
             while let Some(chunk) = lines.next().await {
                 let chunk = chunk?;
-                let text = String::from_utf8_lossy(&chunk);
-                buffer.push_str(&text);
-                for part in buffer.split('\n') {
-                    if part.starts_with("data:") {
-                        let token = part.trim_start_matches("data:").trim();
+                buffer.push_str(&String::from_utf8_lossy(&chunk));
+                while let Some(idx) = buffer.find('\n') {
+                    let mut line = buffer.drain(..=idx).collect::<String>();
+                    if line.ends_with('\n') {
+                        line.pop();
+                    }
+                    if line.ends_with('\r') {
+                        line.pop();
+                    }
+                    if line.starts_with("data:") {
+                        let token = line.trim_start_matches("data:").trim();
                         if token == "[DONE]" {
                             yield ProviderEvent { delta: None, done: true, usage: None };
                         } else if !token.is_empty() {
-                            yield ProviderEvent { delta: Some(token.to_string()), done: false, usage: None };
+                            match serde_json::from_str::<Value>(token) {
+                                Ok(value) => {
+                                    if let Some(text) = value
+                                        .pointer("/delta/text")
+                                        .and_then(|v| v.as_str())
+                                    {
+                                        if !text.is_empty() {
+                                            yield ProviderEvent { delta: Some(text.to_string()), done: false, usage: None };
+                                        }
+                                    }
+                                }
+                                Err(_) => {
+                                    yield ProviderEvent { delta: Some(token.to_string()), done: false, usage: None };
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if !buffer.trim().is_empty() {
+                if buffer.starts_with("data:") {
+                    let token = buffer.trim_start_matches("data:").trim();
+                    if token == "[DONE]" {
+                        yield ProviderEvent { delta: None, done: true, usage: None };
+                    } else if !token.is_empty() {
+                        if let Ok(value) = serde_json::from_str::<Value>(token) {
+                            if let Some(text) = value
+                                .pointer("/delta/text")
+                                .and_then(|v| v.as_str())
+                            {
+                                if !text.is_empty() {
+                                    yield ProviderEvent { delta: Some(text.to_string()), done: false, usage: None };
+                                }
+                            }
                         }
                     }
                 }

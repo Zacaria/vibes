@@ -3,6 +3,7 @@ use async_stream::try_stream;
 use futures::StreamExt;
 use reqwest::Client;
 use serde::Serialize;
+use serde_json::Value;
 
 use crate::domain::{Message, MessageRole, Profile, UsageMetrics};
 use crate::providers::{offline_stream, ProviderEvent, ProviderParams, ProviderStream};
@@ -69,7 +70,21 @@ pub async fn stream(
                         if token == "[DONE]" {
                             yield ProviderEvent { delta: None, done: true, usage: None };
                         } else if !token.is_empty() {
-                            yield ProviderEvent { delta: Some(token.to_string()), done: false, usage: None };
+                            match serde_json::from_str::<Value>(token) {
+                                Ok(value) => {
+                                    if let Some(text) = value
+                                        .pointer("/choices/0/delta/content")
+                                        .and_then(|v| v.as_str())
+                                    {
+                                        if !text.is_empty() {
+                                            yield ProviderEvent { delta: Some(text.to_string()), done: false, usage: None };
+                                        }
+                                    }
+                                }
+                                Err(_) => {
+                                    yield ProviderEvent { delta: Some(token.to_string()), done: false, usage: None };
+                                }
+                            }
                         }
                     }
                 }
