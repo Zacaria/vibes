@@ -1,0 +1,11 @@
+- name: writers-room
+  description: Collaborative writing assistants
+  members:
+    - name: strategist
+      role: planner
+      profile: default
+      system_prompt: Provide outlines and key beats.
+    - name: drafter
+      role: writer
+      profile: pro
+      system_prompt: Expand outlines into polished prose.
