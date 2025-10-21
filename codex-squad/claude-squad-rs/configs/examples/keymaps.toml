@@ -1,0 +1,6 @@
+[bindings]
+focus_command = "/"
+scroll_up = "k"
+scroll_down = "j"
+new_chat = "F5"
+save_conversation = "F10"
