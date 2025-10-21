@@ -1,0 +1,5 @@
+# Default configuration for cli-twitter
+# Copy to $CONFIG_DIR/cli-twitter/config.toml or set CLI_TWITTER_CONFIG
+
+default_feed = "global"
+supabase_project = "your-project-name"
