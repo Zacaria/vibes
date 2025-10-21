@@ -42,7 +42,7 @@ Secrets are read from environment variables or the operating system keychain. AP
 
 ## CLI Overview
 
-```
+```text
 claude-squad-rs [FLAGS] <SUBCOMMAND>
 
 Flags:

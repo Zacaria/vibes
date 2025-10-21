@@ -96,6 +96,9 @@ fn convert_profile(name: &str, profile: CodexProfile) -> Profile {
 
 fn candidate_paths() -> Vec<PathBuf> {
     let mut paths = Vec::new();
+    if let Some(path) = std::env::var_os("CODEX_CONFIG") {
+        paths.push(PathBuf::from(path));
+    }
     if let Some(base) = BaseDirs::new() {
         paths.push(base.config_dir().join("codex").join("config.yml"));
         paths.push(base.config_dir().join("codex").join("config.yaml"));
@@ -104,9 +107,6 @@ fn candidate_paths() -> Vec<PathBuf> {
         let mut path = PathBuf::from(home);
         path.push(".config/codex/config.yml");
         paths.push(path);
-    }
-    if let Some(path) = std::env::var_os("CODEX_CONFIG") {
-        paths.push(PathBuf::from(path));
     }
     paths
 }

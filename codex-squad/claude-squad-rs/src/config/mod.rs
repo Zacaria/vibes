@@ -106,16 +106,16 @@ pub struct ExecutionContext {
 }
 
 impl ExecutionContext {
-    pub fn new(loader: ConfigLoader, overrides: ExecutionOverrides) -> Self {
+    pub fn new(loader: ConfigLoader, overrides: ExecutionOverrides) -> Result<Self> {
         let data_dir = loader.config_dir().join("data");
-        std::fs::create_dir_all(&data_dir).expect("data dir");
-        let storage = Storage::new(data_dir.join("app.db"));
-        Self {
+        std::fs::create_dir_all(&data_dir)?;
+        let storage = Storage::try_new(data_dir.join("app.db"))?;
+        Ok(Self {
             loader,
             overrides,
             storage,
             cached_profiles: Arc::new(RwLock::new(Vec::new())),
-        }
+        })
     }
 
     pub fn loader(&self) -> &ConfigLoader {

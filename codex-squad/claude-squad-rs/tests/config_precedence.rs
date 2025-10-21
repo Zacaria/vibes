@@ -44,7 +44,7 @@ fn cli_override_wins_over_env_and_codex() {
         codex_profile: Some("default".into()),
         codex_enabled: true,
     };
-    let ctx = ExecutionContext::new(loader, overrides);
+    let ctx = ExecutionContext::new(loader, overrides).unwrap();
     let profile = ctx.active_profile(None).unwrap();
     assert_eq!(profile.name, "pro");
     assert_eq!(profile.model, "gpt-4o");
@@ -65,7 +65,7 @@ fn env_override_wins_over_codex_config() {
         codex_profile: Some("pro".into()),
         codex_enabled: true,
     };
-    let ctx = ExecutionContext::new(loader, overrides);
+    let ctx = ExecutionContext::new(loader, overrides).unwrap();
     let profile = ctx.active_profile(None).unwrap();
     assert_eq!(profile.name, "pro");
     std::env::remove_var("CODEX_CONFIG");
@@ -85,7 +85,7 @@ fn codex_config_used_when_enabled() {
         codex_profile: None,
         codex_enabled: true,
     };
-    let ctx = ExecutionContext::new(loader, overrides);
+    let ctx = ExecutionContext::new(loader, overrides).unwrap();
     let profile = ctx.active_profile(None).unwrap();
     assert_eq!(profile.name, "default");
     assert_eq!(profile.model, "claude-3-opus");

@@ -1,3 +1,4 @@
+use std::fs;
 use std::io::{self};
 use std::time::Duration;
 
@@ -9,7 +10,8 @@ use crossterm::ExecutableCommand;
 use futures::StreamExt;
 use ratatui::backend::CrosstermBackend;
 use ratatui::Terminal;
-use tokio::sync::mpsc::{self, UnboundedSender};
+use scopeguard::guard;
+use tokio::sync::mpsc::{self, Sender};
 use tui_input::backend::crossterm::EventHandler;
 use uuid::Uuid;
 
@@ -36,12 +38,11 @@ pub struct AppState {
 }
 
 impl AppState {
-    pub fn new(execution: ExecutionContext) -> Self {
+    pub fn new(execution: ExecutionContext) -> Result<Self> {
         let conversation_id = execution
             .storage()
-            .upsert_conversation("New Conversation")
-            .unwrap_or_else(|_| Uuid::new_v4());
-        Self {
+            .upsert_conversation("New Conversation")?;
+        Ok(Self {
             execution,
             profile_override: None,
             model_override: None,
@@ -54,7 +55,7 @@ impl AppState {
             conversation_id,
             pending_assistant: None,
             usage: UsageMetrics::default(),
-        }
+        })
     }
 
     pub fn set_profile_override(&mut self, profile: String) {
@@ -160,7 +161,9 @@ impl AppState {
     fn finalize_assistant_message(&mut self) {
         if let Some(idx) = self.pending_assistant.take() {
             if let Some(message) = self.messages.get(idx).cloned() {
-                let _ = self.execution.storage().append_message(&message);
+                if let Err(err) = self.execution.storage().append_message(&message) {
+                    self.update_status(format!("persist error: {}", err));
+                }
             }
         }
     }
@@ -175,12 +178,22 @@ pub async fn run_tui(mut state: AppState) -> Result<()> {
         crossterm::event::EnableMouseCapture
     )?;
     let backend = CrosstermBackend::new(stdout);
-    let mut terminal = Terminal::new(backend)?;
+    let terminal = Terminal::new(backend)?;
+    let mut terminal = guard(terminal, |mut term| {
+        let _ = term.show_cursor();
+        let _ = term
+            .backend_mut()
+            .execute(crossterm::event::DisableMouseCapture);
+        let _ = term
+            .backend_mut()
+            .execute(crossterm::terminal::LeaveAlternateScreen);
+        let _ = disable_raw_mode();
+    });
     terminal.hide_cursor()?;
 
-    let (tx, mut rx) = mpsc::unbounded_channel();
+    let (tx, mut rx) = mpsc::channel(1024);
 
-    let result = loop {
+    loop {
         terminal.draw(|frame| {
             ui::layout::render(frame, &state);
         })?;
@@ -208,21 +221,13 @@ pub async fn run_tui(mut state: AppState) -> Result<()> {
             if let Event::Key(key) = event::read()? {
                 if key.kind == KeyEventKind::Press && handle_key_event(&mut state, key, &tx).await?
                 {
-                    break Ok(());
+                    break;
                 }
             }
         }
-    };
+    }
 
-    disable_raw_mode()?;
-    terminal.show_cursor()?;
-    terminal
-        .backend_mut()
-        .execute(crossterm::event::DisableMouseCapture)?;
-    terminal
-        .backend_mut()
-        .execute(crossterm::terminal::LeaveAlternateScreen)?;
-    result
+    Ok(())
 }
 
 pub async fn run_headless(state: AppState) -> Result<()> {
@@ -237,7 +242,7 @@ pub async fn run_headless(state: AppState) -> Result<()> {
 async fn handle_key_event(
     state: &mut AppState,
     key: KeyEvent,
-    tx: &UnboundedSender<InternalEvent>,
+    tx: &Sender<InternalEvent>,
 ) -> Result<bool> {
     match key.code {
         KeyCode::Esc => return Ok(true),
@@ -249,7 +254,7 @@ async fn handle_key_event(
         KeyCode::Enter => {
             let value = state.input.value().to_string();
             if value.starts_with('/') {
-                handle_command(state, &value, tx).await?;
+                handle_command(state, &value).await?;
             } else if !value.trim().is_empty() {
                 submit_message(state, value, tx.clone()).await?;
             }
@@ -270,11 +275,7 @@ async fn handle_key_event(
     Ok(false)
 }
 
-async fn handle_command(
-    state: &mut AppState,
-    command_text: &str,
-    _tx: &UnboundedSender<InternalEvent>,
-) -> Result<()> {
+async fn handle_command(state: &mut AppState, command_text: &str) -> Result<()> {
     match commands::parse(command_text) {
         Ok(Command::Profile(name)) => {
             state.set_profile_override(name.clone());
@@ -304,13 +305,29 @@ async fn handle_command(
             state.update_status("Commands: /profile, /model, /new, /sys, /stream");
         }
         Ok(Command::Export(format)) => {
-            let output = crate::storage::export::export_conversation(
-                &state.execution.storage(),
+            let storage = state.execution.storage();
+            match crate::storage::export::export_conversation(
+                storage,
                 &state.conversation_id.to_string(),
                 format,
-            )?;
-            state.update_status("Conversation exported to stdout");
-            println!("{}", output);
+            ) {
+                Ok(output) => {
+                    let export_dir = state.execution.loader().config_dir().join("exports");
+                    if let Err(err) = fs::create_dir_all(&export_dir) {
+                        state.update_status(format!("export failed: {}", err));
+                    } else {
+                        let path =
+                            export_dir.join(format!("conversation-{}.txt", state.conversation_id));
+                        match fs::write(&path, output) {
+                            Ok(()) => {
+                                state.update_status(format!("Exported to {}", path.display()))
+                            }
+                            Err(err) => state.update_status(format!("export failed: {}", err)),
+                        }
+                    }
+                }
+                Err(err) => state.update_status(format!("Export failed: {}", err)),
+            }
         }
         Ok(Command::Unknown(text)) => {
             state.update_status(format!("Unknown command: {}", text));
@@ -325,7 +342,7 @@ async fn handle_command(
 async fn submit_message(
     state: &mut AppState,
     text: String,
-    tx: UnboundedSender<InternalEvent>,
+    tx: Sender<InternalEvent>,
 ) -> Result<()> {
     let profile = state.active_profile()?;
     let message = Message {
@@ -349,7 +366,9 @@ async fn submit_message(
         if let Err(err) =
             stream_from_provider(profile, tx.clone(), history, streaming, system_override).await
         {
-            let _ = tx.send(InternalEvent::Status(format!("Provider error: {}", err)));
+            let _ = tx
+                .send(InternalEvent::Status(format!("Provider error: {}", err)))
+                .await;
         }
     });
     Ok(())
@@ -357,7 +376,7 @@ async fn submit_message(
 
 async fn stream_from_provider(
     profile: Profile,
-    tx: UnboundedSender<InternalEvent>,
+    tx: Sender<InternalEvent>,
     history: Vec<Message>,
     streaming: bool,
     system_override: Option<String>,
@@ -372,7 +391,9 @@ async fn stream_from_provider(
         match event {
             Ok(ev) => {
                 let done = ev.done;
-                let _ = tx.send(InternalEvent::Provider(ev));
+                if tx.send(InternalEvent::Provider(ev)).await.is_err() {
+                    break;
+                }
                 if done {
                     break;
                 }
