@@ -1,0 +1,6 @@
+app_name = "cli-twitter"
+reports_dir = "./reports"
+
+[supabase]
+url = "https://your-project.supabase.co"
+anon_key = "public-anon-key"

@@ -1,0 +1,8 @@
+pub mod app;
+pub mod cfg;
+pub mod commands;
+pub mod data;
+pub mod domain;
+pub mod supabase;
+pub mod telemetry;
+pub mod ui;

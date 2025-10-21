@@ -1,0 +1,51 @@
+[package]
+name = "cli-twitter"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <you@example.com>"]
+description = "Twitter-like terminal client backed by Supabase"
+license = "MIT"
+
+[dependencies]
+anyhow = "1.0"
+thiserror = "1.0"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "time", "fs", "sync"] }
+clap = { version = "4", features = ["derive"] }
+ratatui = { version = "0.26", default-features = false, features = ["crossterm"] }
+crossterm = "0.27"
+reqwest = { version = "0.11", features = ["json", "cookies", "gzip", "stream"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_with = "3"
+rusqlite = { version = "0.29", features = ["bundled", "chrono", "functions"] }
+parking_lot = "0.12"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+directories = "5"
+regex = "1"
+uuid = { version = "1", features = ["serde", "v4"] }
+base64 = "0.22"
+jsonwebtoken = "9"
+time = { version = "0.3", features = ["macros", "serde-human-readable"] }
+dotenvy = "0.15"
+toml = "0.8"
+open = "5"
+hyper = { version = "0.14", features = ["full"] }
+url = "2"
+async-trait = "0.1"
+keyring = "2"
+sha2 = "0.10"
+rand = "0.8"
+futures = "0.3"
+bytes = "1"
+which = "4"
+indicatif = "0.17"
+path-absolutize = "3"
+whoami = "1"
+urlencoding = "2"
+
+[dev-dependencies]
+assert_cmd = "2"
+predicates = "3"
+tempfile = "3"
+insta = { version = "1", features = ["glob"] }
