@@ -4,7 +4,6 @@ use futures::StreamExt;
 use reqwest::Client;
 use serde::Serialize;
 use serde_json::Value;
-use std::time::Duration;
 
 use crate::domain::{Message, MessageRole, Profile, UsageMetrics};
 use crate::providers::{offline_stream, ProviderEvent, ProviderParams, ProviderStream};
@@ -87,14 +86,27 @@ pub async fn stream(
             let mut done_emitted = false;
             while let Some(chunk) = stream.next().await {
                 let chunk = chunk?;
-                let chunk_text = String::from_utf8_lossy(&chunk).replace('\r', "");
-                buffer.push_str(&chunk_text);
-                while let Some(idx) = buffer.find("\n\n") {
-                    let event: String = buffer.drain(..idx + 2).collect();
-                    let (events, saw_done) = parse_sse_event(&event);
-                    for evt in events {
-                        if evt.done {
-                            done_emitted = true;
+                for line in String::from_utf8_lossy(&chunk).split('\n') {
+                    if line.starts_with("data:") {
+                        let token = line.trim_start_matches("data:").trim();
+                        if token == "[DONE]" {
+                            yield ProviderEvent { delta: None, done: true, usage: None };
+                        } else if !token.is_empty() {
+                            match serde_json::from_str::<Value>(token) {
+                                Ok(value) => {
+                                    if let Some(text) = value
+                                        .pointer("/choices/0/delta/content")
+                                        .and_then(|v| v.as_str())
+                                    {
+                                        if !text.is_empty() {
+                                            yield ProviderEvent { delta: Some(text.to_string()), done: false, usage: None };
+                                        }
+                                    }
+                                }
+                                Err(_) => {
+                                    yield ProviderEvent { delta: Some(token.to_string()), done: false, usage: None };
+                                }
+                            }
                         }
                         yield evt;
                     }
