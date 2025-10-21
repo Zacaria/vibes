@@ -1,11 +1,13 @@
 use anyhow::Error;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::fmt;
 use std::str::FromStr;
 use time::OffsetDateTime;
 use uuid::Uuid;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
+#[serde(deny_unknown_fields)]
 pub struct Profile {
     pub name: String,
     pub provider: ProviderKind,
@@ -31,6 +33,7 @@ pub struct Profile {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
+#[serde(deny_unknown_fields)]
 pub struct Squad {
     pub name: String,
     #[serde(default)]
@@ -39,6 +42,7 @@ pub struct Squad {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
 pub struct Member {
     pub name: String,
     pub role: String,
@@ -107,6 +111,32 @@ pub enum MessageRole {
     Tool,
 }
 
+impl fmt::Display for MessageRole {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let value = match self {
+            MessageRole::System => "system",
+            MessageRole::User => "user",
+            MessageRole::Assistant => "assistant",
+            MessageRole::Tool => "tool",
+        };
+        f.write_str(value)
+    }
+}
+
+impl FromStr for MessageRole {
+    type Err = String;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "system" => Ok(MessageRole::System),
+            "user" => Ok(MessageRole::User),
+            "assistant" => Ok(MessageRole::Assistant),
+            "tool" => Ok(MessageRole::Tool),
+            other => Err(format!("unknown role: {}", other)),
+        }
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub struct Attachment {
     pub id: Uuid,
@@ -124,6 +154,7 @@ pub enum AttachmentKind {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
+#[serde(deny_unknown_fields)]
 pub struct ProviderModel {
     pub provider: ProviderKind,
     pub name: String,
@@ -136,7 +167,7 @@ pub struct ConversationSummary {
     pub id: Uuid,
     pub title: String,
     pub updated_at: OffsetDateTime,
-    pub message_count: usize,
+    pub message_count: u64,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]

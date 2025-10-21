@@ -7,6 +7,8 @@ use std::sync::Arc;
 use anyhow::Result;
 use parking_lot::Mutex;
 use rusqlite::{params, Connection, OptionalExtension};
+use std::convert::TryInto;
+use std::str::FromStr;
 use time::OffsetDateTime;
 use uuid::Uuid;
 
@@ -23,18 +25,17 @@ struct StorageInner {
 }
 
 impl Storage {
-    pub fn new(path: PathBuf) -> Self {
-        util::ensure_parent(&path).expect("parent dir");
-        let conn = Connection::open(path).expect("open sqlite");
+    pub fn try_new(path: PathBuf) -> Result<Self> {
+        util::ensure_parent(&path)?;
+        let conn = Connection::open(path)?;
         conn.pragma_update(None, "journal_mode", "WAL").ok();
         conn.pragma_update(None, "foreign_keys", "ON").ok();
-        conn.execute_batch(include_str!("../../migrations/sqlite/0001_init.sql"))
-            .expect("migrations");
-        Self {
+        conn.execute_batch(include_str!("../../migrations/sqlite/0001_init.sql"))?;
+        Ok(Self {
             inner: Arc::new(StorageInner {
                 conn: Mutex::new(conn),
             }),
-        }
+        })
     }
 
     pub fn health_check(&self) -> String {
@@ -136,7 +137,7 @@ impl Storage {
                     &time::format_description::well_known::Rfc3339,
                 )
                 .unwrap_or_else(|_| util::now()),
-                message_count: row.get::<_, i64>(3)? as usize,
+                message_count: row.get::<_, i64>(3)?.try_into().unwrap_or_default(),
             });
         }
         Ok(rows)
@@ -155,19 +156,9 @@ impl Storage {
 }
 
 fn format_role(role: MessageRole) -> String {
-    match role {
-        MessageRole::System => "system".into(),
-        MessageRole::User => "user".into(),
-        MessageRole::Assistant => "assistant".into(),
-        MessageRole::Tool => "tool".into(),
-    }
+    role.to_string()
 }
 
 fn parse_role(role: &str) -> MessageRole {
-    match role {
-        "system" => MessageRole::System,
-        "assistant" => MessageRole::Assistant,
-        "tool" => MessageRole::Tool,
-        _ => MessageRole::User,
-    }
+    MessageRole::from_str(role).unwrap_or(MessageRole::User)
 }

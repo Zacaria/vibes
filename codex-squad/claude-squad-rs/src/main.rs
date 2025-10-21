@@ -12,7 +12,7 @@ mod util;
 
 use std::path::PathBuf;
 
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 use clap::{ArgAction, Parser, Subcommand, ValueEnum};
 use config::ConfigLoader;
 use storage::export::ExportFormat;
@@ -81,7 +81,7 @@ enum Commands {
     Export {
         conversation_id: String,
         #[arg(long, value_enum)]
-        format: ExportFormat,
+        format: CliExportFormat,
     },
     /// Import a conversation history file.
     Import { file: PathBuf },
@@ -109,7 +109,7 @@ struct ChatArgs {
     system: Option<String>,
     #[arg(long = "system-file")]
     system_file: Option<PathBuf>,
-    #[arg(long, action = ArgAction::SetTrue, default_value_t = true)]
+    #[arg(long, action = ArgAction::Set, default_value_t = true)]
     stream: bool,
 }
 
@@ -128,7 +128,7 @@ enum ConfigAction {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    color_eyre::install().expect("color-eyre install");
+    color_eyre::install().map_err(|err| anyhow!(err))?;
     let cli = Cli::parse();
     let _guard = TelemetryGuard::init(cli.log_level.as_str())?;
 
@@ -140,9 +140,9 @@ async fn main() -> Result<()> {
             codex_profile: std::env::var("CODEX_PROFILE").ok(),
             codex_enabled: cli.codex,
         },
-    );
+    )?;
 
-    let mut app_state = app::AppState::new(execution.clone());
+    let mut app_state = app::AppState::new(execution.clone())?;
 
     let no_ansi = cli.no_ansi;
 
@@ -201,16 +201,16 @@ async fn main() -> Result<()> {
             format,
         } => {
             let exported = storage::export::export_conversation(
-                &execution.storage(),
+                execution.storage(),
                 &conversation_id,
-                format,
+                format.into(),
             )?;
             println!("{}", exported);
         }
         Commands::Import { file } => {
             let contents = std::fs::read_to_string(&file)?;
             let conversation_id =
-                storage::import::import_conversation(&execution.storage(), &contents)?;
+                storage::import::import_conversation(execution.storage(), &contents)?;
             println!("Imported conversation {}", conversation_id);
         }
         Commands::History { filter } => {
@@ -232,4 +232,19 @@ async fn main() -> Result<()> {
 
     info!("shutdown");
     Ok(())
+}
+
+#[derive(ValueEnum, Copy, Clone, Debug)]
+enum CliExportFormat {
+    Json,
+    Md,
+}
+
+impl From<CliExportFormat> for ExportFormat {
+    fn from(value: CliExportFormat) -> Self {
+        match value {
+            CliExportFormat::Json => ExportFormat::Json,
+            CliExportFormat::Md => ExportFormat::Md,
+        }
+    }
 }

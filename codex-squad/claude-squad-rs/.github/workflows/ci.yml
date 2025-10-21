@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
 
 jobs:
@@ -27,6 +27,8 @@ jobs:
         run: cargo build --all --locked
       - name: Clippy
         run: cargo clippy --all-targets -- -D warnings
+      - name: Format
+        run: cargo fmt --all -- --check
       - name: Test
         run: cargo test --all --locked
       - name: Smoke

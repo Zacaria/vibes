@@ -6,7 +6,7 @@ authors = ["GPT-5 Codex Squad"]
 description = "Claude Squad port in Rust with Ratatui TUI"
 license = "MIT"
 readme = "README.md"
-repository = "https://example.com/claude-squad-rs"
+repository = "https://github.com/Zacaria/vibes"
 
 [dependencies]
 anyhow = "1"
@@ -39,6 +39,7 @@ notify = "6"
 color-eyre = "0.6"
 base64 = "0.22"
 camino = "1"
+scopeguard = "1.2"
 
 [dev-dependencies]
 assert_cmd = "2"
