@@ -74,7 +74,8 @@ pub async fn stream(
             let mut done_emitted = false;
             while let Some(chunk) = lines.next().await {
                 let chunk = chunk?;
-                buffer.push_str(&String::from_utf8_lossy(&chunk));
+                let chunk_text = String::from_utf8_lossy(&chunk).replace('\r', "");
+                buffer.push_str(&chunk_text);
                 while let Some(idx) = buffer.find("\n\n") {
                     let event: String = buffer.drain(..idx + 2).collect();
                     let (events, saw_done) = parse_sse_event(&event);
@@ -87,7 +88,7 @@ pub async fn stream(
                     done_emitted |= saw_done;
                 }
             }
-            if !buffer.is_empty() {
+            if !buffer.trim().is_empty() {
                 let (events, saw_done) = parse_sse_event(&buffer);
                 for evt in events {
                     if evt.done {
