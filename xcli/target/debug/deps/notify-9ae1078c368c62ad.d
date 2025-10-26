@@ -1,0 +1,11 @@
+/Users/zacariachtatar/repos/vibes/target/debug/deps/libnotify-9ae1078c368c62ad.rmeta: /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/lib.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/fsevent.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/event.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/null.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/poll.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/config.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/error.rs
+
+/Users/zacariachtatar/repos/vibes/target/debug/deps/notify-9ae1078c368c62ad.d: /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/lib.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/fsevent.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/event.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/null.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/poll.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/config.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/error.rs
+
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/lib.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/fsevent.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/event.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/null.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/poll.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/config.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/notify-6.1.1/src/error.rs:

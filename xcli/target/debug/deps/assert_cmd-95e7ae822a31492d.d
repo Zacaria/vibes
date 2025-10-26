@@ -1,0 +1,15 @@
+/Users/zacariachtatar/repos/vibes/target/debug/deps/libassert_cmd-95e7ae822a31492d.rmeta: /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/lib.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/macros.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/assert.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/cargo.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/cmd.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/output.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/color.rs /Users/zacariachtatar/repos/vibes/target/debug/build/assert_cmd-4f5fd46c8b4e2d91/out/current_target.txt /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/../README.md
+
+/Users/zacariachtatar/repos/vibes/target/debug/deps/assert_cmd-95e7ae822a31492d.d: /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/lib.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/macros.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/assert.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/cargo.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/cmd.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/output.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/color.rs /Users/zacariachtatar/repos/vibes/target/debug/build/assert_cmd-4f5fd46c8b4e2d91/out/current_target.txt /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/../README.md
+
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/lib.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/macros.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/assert.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/cargo.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/cmd.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/output.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/color.rs:
+/Users/zacariachtatar/repos/vibes/target/debug/build/assert_cmd-4f5fd46c8b4e2d91/out/current_target.txt:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.17/src/../README.md:
+
+# env-dep:OUT_DIR=/Users/zacariachtatar/repos/vibes/target/debug/build/assert_cmd-4f5fd46c8b4e2d91/out

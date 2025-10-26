@@ -1,0 +1,11 @@
+/Users/zacariachtatar/repos/vibes/target/debug/deps/liburl-d801bc212f78100d.rmeta: /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/lib.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/host.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/origin.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/parser.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/path_segments.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/slicing.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/quirks.rs
+
+/Users/zacariachtatar/repos/vibes/target/debug/deps/url-d801bc212f78100d.d: /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/lib.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/host.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/origin.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/parser.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/path_segments.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/slicing.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/quirks.rs
+
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/lib.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/host.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/origin.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/parser.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/path_segments.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/slicing.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.5.7/src/quirks.rs:

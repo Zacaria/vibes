@@ -1,0 +1,10 @@
+/Users/zacariachtatar/repos/vibes/target/debug/deps/libconsole-0ea2eabfa624249a.rmeta: /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/lib.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/common_term.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/kb.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/term.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/unix_term.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/utils.rs
+
+/Users/zacariachtatar/repos/vibes/target/debug/deps/console-0ea2eabfa624249a.d: /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/lib.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/common_term.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/kb.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/term.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/unix_term.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/utils.rs
+
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/lib.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/common_term.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/kb.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/term.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/unix_term.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/console-0.15.11/src/utils.rs:

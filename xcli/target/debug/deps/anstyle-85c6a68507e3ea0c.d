@@ -1,0 +1,10 @@
+/Users/zacariachtatar/repos/vibes/target/debug/deps/libanstyle-85c6a68507e3ea0c.rmeta: /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/lib.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/macros.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/color.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/effect.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/reset.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/style.rs
+
+/Users/zacariachtatar/repos/vibes/target/debug/deps/anstyle-85c6a68507e3ea0c.d: /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/lib.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/macros.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/color.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/effect.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/reset.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/style.rs
+
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/lib.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/macros.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/color.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/effect.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/reset.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anstyle-1.0.13/src/style.rs:

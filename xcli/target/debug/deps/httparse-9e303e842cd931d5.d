@@ -1,0 +1,10 @@
+/Users/zacariachtatar/repos/vibes/target/debug/deps/libhttparse-9e303e842cd931d5.rmeta: /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/lib.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/iter.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/macros.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/simd/mod.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/simd/swar.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/simd/neon.rs
+
+/Users/zacariachtatar/repos/vibes/target/debug/deps/httparse-9e303e842cd931d5.d: /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/lib.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/iter.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/macros.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/simd/mod.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/simd/swar.rs /Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/simd/neon.rs
+
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/lib.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/iter.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/macros.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/simd/mod.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/simd/swar.rs:
+/Users/zacariachtatar/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.10.1/src/simd/neon.rs:
