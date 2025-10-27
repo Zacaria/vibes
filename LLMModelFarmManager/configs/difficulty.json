@@ -1,0 +1,20 @@
+{
+  "name": "Standard",
+  "finance": {
+    "starting_cash": 5000000.0,
+    "success_cash_target": 20000000.0,
+    "sla_tolerance": 3
+  },
+  "energy": {
+    "base_price_per_kwh": 0.18,
+    "carbon_target": 280.0
+  },
+  "market": {
+    "base_token_price": 38.0,
+    "demand_growth": 0.1
+  },
+  "events": {
+    "failure_multiplier": 1.0,
+    "random_seed": 42
+  }
+}
